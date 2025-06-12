@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ahmad – Het masker achter park Voorburg</title>
+  <link rel="stylesheet" href="mijnstyle.css" />
+
+  <!-- Firebase compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBY4pMsw3ZXulBWZsLbVremSndbDcQZDrQ",
+      authDomain: "maskerachtervoorburg.firebaseapp.com",
+      databaseURL: "https://maskerachtervoorburg-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "maskerachtervoorburg",
+      storageBucket: "maskerachtervoorburg.appspot.com",
+      messagingSenderId: "390299988595",
+      appId: "1:390299988595:web:6f2440752c349d1a10b006"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+</head>
+<body>
+  <header>
+    <img src="logotest.png" alt="logo website" />
+    <h1>masker achter park voorburg</h1>
+  </header>
+
+  <div class="back-button">
+    <button onclick="location.href='index.html'">&larr; Terug</button>
+  </div>
+
+  <section class="content">
+    <img src="illustratie1.jpg" alt="Illustratie persoon 2" />
+    <div class="text-section">
+      <h2>‘Ik ben geen oorlog. Ik ben Ahmad. Een mens met een verhaal, net als jij.’</h2>
+      <p>Mijn naam is Ahmad. Ik ben 25 jaar oud en ik kom uit Aleppo, Syrië. Sinds ruim een jaar woon ik op Zorgpark Voorburg. Daarvoor verbleef ik in verschillende opvangcentra, telkens in onzekerheid. Mijn reis naar Nederland begon te voet, met niets anders dan een rugzak, een foto van mijn familie en hoop. De oorlog maakte dat ik moest vluchten. Maar wat veel mensen niet begrijpen, is dat je niet alleen je land verlaat – je verliest ook je verleden, je werk, je vrienden, je taal.</p>
+      <p>Op Voorburg vond ik eindelijk rust. Hier hoor ik vogels in plaats van onrust. Ik deel een woonplek met andere bewoners. Sommigen begrijpen mij, anderen leer ik kennen. Ik spreek steeds beter Nederlands en heb twee vaste begeleiders die me helpen met praktische dingen en gesprekken.</p>
+      <p>Wat mij gelukkig maakt, zijn kleine dingen. Koken bijvoorbeeld – Syrische gerechten zoals ‘mujaddara’ (linzen met rijst en gebakken ui) maken me blij. Ik nodig soms andere bewoners uit om samen te eten. Eten brengt mensen dichter bij elkaar.</p>
+      <p>Daarnaast schrijf ik gedichten, meestal ’s avonds. Over herinneringen, over dromen. Ik schreef laatst een gedicht in twee talen, Arabisch en Nederlands. Dat voelde als een brug tussen twee werelden.</p>
+      <p>Wat mij uniek maakt? Dat ik ondanks alles nog steeds zacht blijf. Ik help andere bewoners als ze iets niet begrijpen. Ik zeg altijd: we hebben elkaar nodig.</p>
+      <p>Mijn grootste droom is om ooit met kinderen te werken, zoals ik vroeger deed. In Syrië gaf ik bijles Engels aan kinderen in mijn buurt. Ik geloof dat ik die Ahmad weer terug kan vinden, hier. Verder houd ik van kletsen en boeken lezen. En daarover weer kletsen met andere mensen.</p>
+      <p>Wat ik mensen wil meegeven: kijk voorbij mijn status. Zie mij als mens. Als broer, als dichter, als dromer. Ik ben Ahmad – een persoon met een hart en ziel, net zoals ieder ander.</p>
+    </div>
+  </section>
+
+  <section class="feedback">
+    <h3>Laat iets (liefs) achter voor Ahmad!</h3>
+    <form id="feedbackForm">
+      <div class="input-row">
+        <textarea id="messageInput" placeholder="Typ hier een berichtje voor Ahmad..." oninput="autoGrow(this)"></textarea>
+        <button type="submit">Verstuur</button>
+      </div>
+      <div class="emoji-row">
+        <label><input type="checkbox" name="emoji" value="❤️"> ❤️</label>
+        <label><input type="checkbox" name="emoji" value="😊"> 😊</label>
+        <label><input type="checkbox" name="emoji" value="🌷"> 🌷</label>
+        <label><input type="checkbox" name="emoji" value="💪"> 💪</label>
+      </div>
+    </form>
+  </section>
+
+  <section class="reaction-box" id="reactionBox"></section>
+
+  <script>
+    const form = document.getElementById("feedbackForm");
+    const box = document.getElementById("reactionBox");
+    const msgInput = document.getElementById("messageInput");
+
+    // VERANDER HIER: gebruik uniek pad voor Ahmad
+    const dbRef = db.ref("persoon2Messages");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const text = msgInput.value.trim();
+      const emojis = Array.from(document.querySelectorAll('input[name="emoji"]:checked')).map(e => e.value);
+      if (!text && emojis.length === 0) return;
+
+      const message = text + " " + emojis.join(" ");
+      dbRef.push(message);
+
+      msgInput.value = "";
+      document.querySelectorAll('input[name="emoji"]').forEach(e => (e.checked = false));
+    });
+
+    dbRef.on("child_added", snapshot => {
+      showMessage(snapshot.val());
+    });
+
+    function showMessage(msg) {
+      const span = document.createElement("span");
+      span.className = "floating-message";
+      span.textContent = msg;
+
+      const x = Math.random() * 80;
+      const y = Math.random() * 80;
+      span.style.left = `${x}%`;
+      span.style.top = `${y}%`;
+
+      box.appendChild(span);
+    }
+
+    function autoGrow(element) {
+      element.style.height = "auto";
+      element.style.height = element.scrollHeight + "px";
+    }
+  </script>
+</body>
+</html>
