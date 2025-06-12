@@ -11,45 +11,53 @@ body {
 
 /* Header */
 header {
-    background-color: #54aee6;
+    background-color: #b7dcf6;
     color: white;
     display: flex;
     align-items: center;
-    padding: 25px 15px;
-    gap: 24px;
+    padding: 15px 15px;
+    gap: 23px;
+    margin-bottom: 65px;
 }
 
 header img {
-    height: 90px;
+    height: 120px;
 }
 
 header h1 {
-    font-size: 2.8em;
+    font-size: 2.6em;
     font-weight: 900;
     margin: 0;
 }
 
 /* Introsectie */
-.intro {
-    background-color: #edf0f3;
-    border-radius: 16px;
-    padding: 20px 30px;
-    margin: 30px 40px 15px 40px;
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 40px 20px 40px; /* ➕ extra bovenruimte */
+    margin-top: 0;
 }
-
-.intro h2 {
+.text-section {
+    max-width: 700px;
+    width: 100%;
     text-align: left;
-    font-weight: 600;
-    font-size: 1.4em;
-    margin-bottom: 16px;
-    color: #222;
+    margin-top: -1px;
 }
 
-.intro p {
-    font-size: 1em;
+.text-section h2 {
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #111;
+    margin-bottom: 28px;
+}
+
+.text-section p {
+    font-size: 0.9em;
     line-height: 1.6;
     color: #333;
-    margin-bottom: 12px;
+    font-weight: 200;
+    margin-bottom: 16px;
 }
 
 /* Container voor posters */
@@ -85,7 +93,7 @@ header h1 {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: #64b2df;
+    background-color: #ec7966;
     color: white;
     border: none;
     padding: 20px 30px;
@@ -106,7 +114,7 @@ header h1 {
 }
 
 .back-button button {
-    background-color: #74a3e9;
+    background-color: #ec7966;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -200,7 +208,7 @@ header h1 {
 }
 
 .input-row button {
-    background-color: #2892c4;
+    background-color: #ec7966;
     color: white;
     border: none;
     padding: 0 20px;
@@ -226,7 +234,7 @@ header h1 {
 }
 
 .emoji-row label {
-    font-size: 1.5em;
+    font-size: 1.6em;
     cursor: pointer;
     user-select: none;
 }
