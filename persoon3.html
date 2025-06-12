@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sophie – Het masker achter park Voorburg</title>
+  <link rel="stylesheet" href="mijnstyle.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBY4pMsw3ZXulBWZsLbVremSndbDcQZDrQ",
+      authDomain: "maskerachtervoorburg.firebaseapp.com",
+      databaseURL: "https://maskerachtervoorburg-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "maskerachtervoorburg",
+      storageBucket: "maskerachtervoorburg.appspot.com",
+      messagingSenderId: "390299988595",
+      appId: "1:390299988595:web:6f2440752c349d1a10b006",
+      measurementId: "G-CWXZS98PBM"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="logo website">
+    <h1>masker achter park voorburg</h1>
+  </header>
+
+  <div class="back-button">
+    <button onclick="location.href='index.html'">&larr; Terug</button>
+  </div>
+
+  <section class="content">
+    <img src="illustratie3.jpg" alt="Illustratie Sophie">
+    <div class="text-section">
+      <h2>‘Ik heb fouten gemaakt, ja. Maar ik leer ervan, elke dag opnieuw.’</h2>
+      <p>Mijn naam is Sophie, ik ben 19 jaar en ik woon nu een half jaar op Zorgpark Voorburg. Daarvoor heb ik op veel plekken gewoond instellingen, pleeggezinnen, logeeradressen. Mijn leven was onrustig. Vanaf mijn vijftiende begon ik te gebruiken. Het begon als ontsnapping, maar werd snel een verslaving.</p>
+      <p>Op Voorburg heb ik voor het eerst een plek waar ik me niet hoef te verstoppen. Hier krijg ik hulp, structuur en ruimte om mezelf weer te leren kennen. Ik leer weer voelen zonder te vluchten. En dat is moeilijker dan het klinkt.</p>
+      <p>Ik schilder veel. Mijn kamer is bijna een mini-atelier. Er hangen doeken met heftige kleuren, veel rood, zwart, blauw. Soms abstract, soms een gezicht zonder ogen dat ben ik, op dagen dat ik niet weet wie ik ben.</p>
+      <p>Ik schrijf ook. Elke dag in mijn dagboek. Soms gewoon wat er gebeurde. Soms een brief aan mijn jongere ik. Of aan mijn broertje, die ik pas weer heb gezien na lange tijd. Hij zei: “Ik zie mijn zus weer.” Dat was een moment dat ik nooit meer vergeet.</p>
+      <p>Wat mensen vaak niet begrijpen, is dat herstel geen rechte lijn is. Ik ben niet zwak omdat ik hulp nodig heb. Ik ben juist sterk omdat ik hulp durf te vragen.</p>
+      <p>Wat ik hoop? Dat ik clean blijf. Dat ik anderen kan helpen. Misschien wil ik later ervaringsdeskundige worden. Ik wil jongeren laten zien dat ze niet alleen zijn.</p>
+      <p>Wat mij uniek maakt? Dat ik het ondanks alles probeer. Dat ik blijf opstaan. Dat ik geloof dat ik iets waard ben, ook als ik het even niet voel.</p>
+      <p>Mijn boodschap aan anderen? Oordeel minder snel. Achter elk gezicht zit een verhaal. En ik ben méér dan mijn verslaving. Ik ben Sophie.</p>
+    </div>
+  </section>
+
+  <section class="feedback">
+    <h3>Laat iets (liefs) achter voor Sophie!</h3>
+    <form id="feedbackForm">
+      <div class="input-row">
+        <textarea id="messageInput" placeholder="Typ hier een berichtje voor Sophie..." oninput="autoGrow(this)"></textarea>
+        <button type="submit">Verstuur</button>
+      </div>
+      <div class="emoji-row">
+        <label><input type="checkbox" name="emoji" value="❤️"> ❤️</label>
+        <label><input type="checkbox" name="emoji" value="😊"> 😊</label>
+        <label><input type="checkbox" name="emoji" value="🌷"> 🌷</label>
+        <label><input type="checkbox" name="emoji" value="💪"> 💪</label>
+      </div>
+    </form>
+  </section>
+
+  <section class="reaction-box" id="reactionBox"></section>
+
+  <script>
+    const form = document.getElementById('feedbackForm');
+    const box = document.getElementById('reactionBox');
+    const msgInput = document.getElementById('messageInput');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = msgInput.value.trim();
+      const emojis = Array.from(document.querySelectorAll('input[name="emoji"]:checked')).map(e => e.value);
+      if (!text && emojis.length === 0) return;
+
+      const message = text + " " + emojis.join(" ");
+      db.ref("persoon3Messages").push(message);
+
+      msgInput.value = "";
+      document.querySelectorAll('input[name="emoji"]').forEach(e => e.checked = false);
+    });
+
+    db.ref("persoon3Messages").on("child_added", snapshot => {
+      showMessage(snapshot.val());
+    });
+
+    function showMessage(msg) {
+      const span = document.createElement('span');
+      span.className = "floating-message";
+      span.textContent = msg;
+
+      const x = Math.random() * 80;
+      const y = Math.random() * 80;
+      span.style.left = `${x}%`;
+      span.style.top = `${y}%`;
+
+      box.appendChild(span);
+    }
+
+    function autoGrow(element) {
+      element.style.height = "auto";
+      element.style.height = element.scrollHeight + "px";
+    }
+  </script>
+</body>
+</html>
