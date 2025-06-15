@@ -30,14 +30,15 @@ header h1 {
     margin: 0;
 }
 
-/* Introsectie */
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 40px 20px 40px; /* ➕ extra bovenruimte */
-    margin-top: 0;
+    padding: 40px;
+    margin: 0 auto;
+    max-width: 1200px;
 }
+
 .text-section {
     max-width: 700px;
     width: 100%;
@@ -129,17 +130,11 @@ header h1 {
 }
 
 /* Persoonspagina: inhoud */
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 40px;
-    margin-top: -60px;
-}
+
 
 .content img {
-    width: 150px;
-    margin-bottom: 20px;
+    width: 350px;
+    margin-bottom: 13px;
 }
 
 .text-section {
@@ -170,7 +165,7 @@ header h1 {
     max-width: 800px;
     margin: 60px auto 30px auto;
     padding: 22px;
-    background-color: #c6e6f5;
+    background-color: #c8e3f7b4;
     border-radius: 16px;
     text-align: left;
     box-sizing: border-box;
@@ -244,7 +239,7 @@ header h1 {
     position: relative;
     width: 90%;
     height: 700px;
-    background-color: #e8f0ff;
+    background-color: #ec7a6613;
     margin: 40px auto;
     border-radius: 20px;
     overflow: hidden;
@@ -258,7 +253,7 @@ header h1 {
     padding: 8px 12px;
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    font-size: 0.5em;
+    font-size: 0.9em;
     max-width: 200px;
     word-wrap: break-word;
     font-weight: 300;
